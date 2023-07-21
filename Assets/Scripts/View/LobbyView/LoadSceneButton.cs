@@ -11,7 +11,7 @@ namespace view
     /// This slot button implementation is dependent on the "SceneLoader" in order to load scene.
     /// </summary>
     [RequireComponent(typeof(Button))]
-    public class SlotButton : MonoBehaviour
+    public class LoadSceneButton : MonoBehaviour
     {
         [SerializeField] private int m_SceneIndex;
         [SerializeField] private Button m_Button;
@@ -28,7 +28,7 @@ namespace view
         {
             if (SceneManager.GetSceneByBuildIndex(m_SceneIndex) == null)
             {
-                Debug.LogError($"SlotButton {this.gameObject.name} build index not found ");
+                Debug.LogError($"LoadSceneButton {this.gameObject.name} build index not found ");
             }
 
         }

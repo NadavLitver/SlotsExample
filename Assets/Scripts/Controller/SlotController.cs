@@ -13,6 +13,9 @@ public class SlotController : MonoBehaviour
 
     bool reelsSpinning;
     bool autoActivated;
+    public event Action OnSpinStarted;
+    public event Action OnSpinEnded;
+
     private void Awake()
     {
         activeReels = new List<ReelController>();
@@ -23,6 +26,7 @@ public class SlotController : MonoBehaviour
         }
         spinButton.OnShortPressEvent += OnShortPres;
         spinButton.OnLongPressEvent += SetAutoTrue;
+        OnSpinStarted += DeductCostFromScore;
     }
 
     private void OnShortPres()
@@ -50,6 +54,7 @@ public class SlotController : MonoBehaviour
     }
     public async UniTask OnReelsSpinningTask()
     {
+        OnSpinStarted?.Invoke();
         while (reelsSpinning)
         {
             bool someReelSpinning = false;// bool to store if any reel is spinning
@@ -66,6 +71,7 @@ public class SlotController : MonoBehaviour
                 reelsSpinning = false;
             }
         }
+        OnSpinEnded?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(2));
         if(!reelsSpinning && autoActivated)//check after 2 seconds if auto is on and player didn't manually spin the reels
         {
@@ -92,5 +98,6 @@ public class SlotController : MonoBehaviour
     }
     private void SetAutoFalse() => autoActivated = false;
 
+    void DeductCostFromScore() => ScoreHandler.DeductFromScore(slotModel.SlotSpinCost);
 
 }

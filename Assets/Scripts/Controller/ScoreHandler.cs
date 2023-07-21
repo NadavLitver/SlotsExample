@@ -37,7 +37,13 @@ public static class ScoreHandler
         currentScore += amount;
         SetScore(currentScore);
     }
-
+    public static void DeductFromScore(int amount)
+    {
+        // Add an amount to the player's current score.
+        int currentScore = GetScore();
+        currentScore -= amount;
+        SetScore(currentScore);
+    }
     public static void ResetScore()
     {
         // Reset the player's score to default.

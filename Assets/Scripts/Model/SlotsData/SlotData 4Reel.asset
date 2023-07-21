@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f1a9ad3581ecfa9438ef788130676473, type: 2}
   - {fileID: 11400000, guid: d33c0083bb51c07429f129490abca573, type: 2}
   - {fileID: 11400000, guid: 1eb19e53e9a1f174bb1f25c36157b787, type: 2}
+  slotSpinCost: 1000

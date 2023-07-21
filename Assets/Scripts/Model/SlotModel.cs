@@ -6,6 +6,7 @@ using UnityEngine;
 public class SlotModel : ScriptableObject
 {
     [SerializeField] ReelModel[] reelModels;
-
+    [SerializeField] int slotSpinCost;
     public ReelModel[] ReelModels { get => reelModels;}
+    public int SlotSpinCost { get => slotSpinCost;}
 }
