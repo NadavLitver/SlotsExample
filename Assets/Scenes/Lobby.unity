@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba174c3ad012bc84cae5afdca5978ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RelatedSceneIndex: 1
+  m_SceneIndex: 1
   m_Button: {fileID: 2028217785}
   m_PrecentSlider: {fileID: 63746984}
 --- !u!1660057539 &9223372036854775807

@@ -1,7 +1,6 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ReelController : MonoBehaviour
@@ -29,15 +28,15 @@ public class ReelController : MonoBehaviour
     }
     public void CallSpinReel(int goalID)
     {
-        StartCoroutine(SpinReelRoutine(goalID));
+        if (!isSpinning)
+        {
+            _ = SpinReelRoutine(goalID);
+        }
     }
 
-    IEnumerator SpinReelRoutine(int goalID)
+    private async UniTask SpinReelRoutine(int goalID)
     {
-        if(isSpinning)// makre
-        {
-            yield break;
-        }
+
         isSpinning = true;
         //init spinning variables
         float spinDistance = m_ReelModel.DistanceBetweenSymbols;
@@ -46,7 +45,7 @@ public class ReelController : MonoBehaviour
         Vector2 topPosition = GetSymbolInHighestPosition();
         int SpinCounter = 0;
 
-        while(isSpinning)
+        while (isSpinning)
         {
             //init spin variables
             bool spinComplete = false;
@@ -64,17 +63,17 @@ public class ReelController : MonoBehaviour
 
             }
 
-            yield return new WaitUntil(() => spinComplete == true);
+            await UniTask.WaitUntil(() => spinComplete == true);
             GetRectTransformWithLowestY().transform.localPosition = topPosition;
             SpinCounter++;
-            yield return new WaitForEndOfFrame();
+            await UniTask.NextFrame();
 
             if (spinDone)
             {
                 isSpinning = false;
             }
         }
-      
+
 
     }
     /// <summary>
@@ -118,12 +117,12 @@ public class ReelController : MonoBehaviour
         float currentHighestY = -1000;
         foreach (var symbol in m_SymbolController.SymbolViews)
         {
-            if(currentHighestY < symbol.transform.localPosition.y)
+            if (currentHighestY < symbol.transform.localPosition.y)
             {
                 currentHighestY = symbol.transform.localPosition.y;
             }
         }
-        return new Vector2 (ReelCenter.transform.localPosition.x, currentHighestY);
+        return new Vector2(ReelCenter.transform.localPosition.x, currentHighestY);
     }
-  
+
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1739ce8c91ca5b948a1162ba23534d41, type: 3}
-  m_Name: SlotData
+  m_Name: SlotData_3Reel
   m_EditorClassIdentifier: 
   reelModels:
   - {fileID: 11400000, guid: e0992391af4dfdd4abd4f4fced401921, type: 2}
