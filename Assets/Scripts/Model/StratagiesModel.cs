@@ -1,5 +1,5 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "New Symbol", menuName = "Slots/StratagiesData")]
+[CreateAssetMenu(fileName = "New StratagiesData", menuName = "Slots/StratagiesData")]
 
 public class StratagiesModel : ScriptableObject
 {
@@ -9,9 +9,49 @@ public class StratagiesModel : ScriptableObject
     private RandomSymbolSetReelAmountStrategy randomSymbolFiveReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(5);
     private LosingStrategy losingStrategy = new LosingStrategy();
 
-    public RandomSpinningStrategy RandomSpinningStrategy { get => randomSpinningStrategy;}
-    public RandomSymbolSetReelAmountStrategy RandomSymbolThreeReelAmountStrategy { get => randomSymbolThreeReelAmountStrategy;  }
-    public RandomSymbolSetReelAmountStrategy RandomSymbolFourReelAmountStrategy { get => randomSymbolFourReelAmountStrategy; }
-    public RandomSymbolSetReelAmountStrategy RandomSymbolFiveReelAmountStrategy { get => randomSymbolFiveReelAmountStrategy;}
-    public LosingStrategy LosingStrategy { get => losingStrategy;}
+
+    public RandomSpinningStrategy RandomSpinningStrategy
+    {
+        get
+        {
+            randomSpinningStrategy ??= new RandomSpinningStrategy();
+            return randomSpinningStrategy;
+        }
+    }
+
+    public RandomSymbolSetReelAmountStrategy RandomSymbolThreeReelAmountStrategy
+    {
+        get
+        {
+            randomSymbolThreeReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(3);
+            return randomSymbolThreeReelAmountStrategy;
+        }
+    }
+
+    public RandomSymbolSetReelAmountStrategy RandomSymbolFourReelAmountStrategy
+    {
+        get
+        {
+            randomSymbolFourReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(4);
+            return randomSymbolFourReelAmountStrategy;
+        }
+    }
+
+    public RandomSymbolSetReelAmountStrategy RandomSymbolFiveReelAmountStrategy
+    {
+        get
+        {
+            randomSymbolFiveReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(5);
+            return randomSymbolFiveReelAmountStrategy;
+        }
+    }
+
+    public LosingStrategy LosingStrategy
+    {
+        get
+        {
+            losingStrategy ??= new LosingStrategy();
+            return losingStrategy;
+        }
+    }
 }

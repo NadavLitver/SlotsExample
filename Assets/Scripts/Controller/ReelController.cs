@@ -30,12 +30,21 @@ public class ReelController : MonoBehaviour
     {
         int goalID = UnityEngine.Random.Range(1, m_ReelModel.SymbolsData.Length + 1);//+1 because max exclusive,start from 1 because I started from 1 in SO's
         CallSpinReel(goalID);
-        Debug.Log($"Reel{gameObject.name} is going to end on{m_ReelModel.SymbolsData[goalID - 1].SymbolName}");
+        DebugSpin(goalID);
     }
     public void SpinWithGoal(int goalID)
     {
         CallSpinReel(goalID);
-        Debug.Log($"Reel{gameObject.name} is going to end on{m_ReelModel.SymbolsData[goalID - 1].SymbolName}");
+        DebugSpin(goalID);
+    }
+    private void DebugSpin(int goalID)
+    {
+        int indexForDebug = goalID - 1;
+        if (indexForDebug < 0)
+        {
+            indexForDebug = 0;
+        }
+        Debug.Log($"Reel{gameObject.name} is going to end on{m_ReelModel.SymbolsData[indexForDebug].SymbolName}");
     }
     public void CallSpinReel(int goalID)
     {

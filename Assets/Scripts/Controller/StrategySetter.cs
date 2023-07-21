@@ -12,11 +12,14 @@ public class StrategySetter : MonoBehaviour
     private void Awake()
     {
         strategyDropdown.onValueChanged.AddListener(OnDropdownChoice);
-        strategies.Add(stratagiesModel.RandomSpinningStrategy);
-        strategies.Add(stratagiesModel.RandomSymbolThreeReelAmountStrategy);
-        strategies.Add(stratagiesModel.RandomSymbolFourReelAmountStrategy);
-        strategies.Add(stratagiesModel.RandomSymbolFiveReelAmountStrategy);
-        strategies.Add(stratagiesModel.LosingStrategy);
+        strategies = new List<ISpinningStrategy>
+        {
+            stratagiesModel.RandomSpinningStrategy,
+            stratagiesModel.RandomSymbolThreeReelAmountStrategy,
+            stratagiesModel.RandomSymbolFourReelAmountStrategy,
+            stratagiesModel.RandomSymbolFiveReelAmountStrategy,
+            stratagiesModel.LosingStrategy
+        };
 
 
     }

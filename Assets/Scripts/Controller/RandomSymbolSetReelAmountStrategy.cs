@@ -19,10 +19,19 @@ public class RandomSymbolSetReelAmountStrategy : ISpinningStrategy
             else
             {
                 int otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
-                while (otherRandomID == randomId)
+                if(otherRandomID == randomId)
                 {
-                    otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
+                    int tries = 10;
+                    for (int j = 0; j < tries; j++)
+                    {
+                        otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
+                        if(otherRandomID != randomId)
+                        {
+                            break;
+                        }
+                    }
                 }
+             
                 reels[i].SpinWithGoal(otherRandomID);
             }
         }
