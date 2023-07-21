@@ -8,15 +8,18 @@ public class ReelController : MonoBehaviour
     private SymbolController m_SymbolController;
     private ReelModel m_ReelModel;
     private bool isSpinning;
-    public RectTransform ReelCenter { get => reelCenter; }
+
     [SerializeField] RectTransform reelCenter;
     [SerializeField] SymbolView m_SymbolViewPrefab;
+    public RectTransform ReelCenter { get => reelCenter; }
+    public bool IsSpinning { get => isSpinning;}
+    bool spinStopped;
     public void InitReel(ReelModel reelModel)
     {
         m_ReelModel = reelModel;
         m_SymbolController = new SymbolController();
         m_SymbolController.DisplayAndPositionSymbols(m_ReelModel.SymbolsData, m_ReelModel.DistanceBetweenSymbols, reelCenter, m_SymbolViewPrefab);
-        SpinRandom();
+       // SpinRandom();
 
 
     }
@@ -30,11 +33,11 @@ public class ReelController : MonoBehaviour
     {
         if (!isSpinning)
         {
-            _ = SpinReelRoutine(goalID);
+            _ = SpinReelTask(goalID);
         }
     }
 
-    private async UniTask SpinReelRoutine(int goalID)
+    private async UniTask SpinReelTask(int goalID)
     {
 
         isSpinning = true;
@@ -49,28 +52,34 @@ public class ReelController : MonoBehaviour
         {
             //init spin variables
             bool spinComplete = false;
-            bool spinDone = false;
+            
             //move each symbol downwards
-            foreach (SymbolView item in m_SymbolController.SymbolViews)
+            foreach (SymbolView symbol in m_SymbolController.SymbolViews)
             {
-
-                float destination = item.transform.localPosition.y - spinDistance;
-                item.transform.DOLocalMoveY(destination, OneSpinTime).SetEase(Ease.Linear).onComplete = () => spinComplete = true;
-                if (AreStopConditionsAnswered(goalID, SpinCounter, item, destination))
+                //get destination for one step of spinning proccess (many of these create the "Spinning" effect)
+                float destination = symbol.transform.localPosition.y - spinDistance;
+                //move symbol to destination
+                symbol.transform.DOLocalMoveY(destination, OneSpinTime).SetEase(Ease.Linear).onComplete = () => spinComplete = true;
+                //check stop conditions
+                if (AreStopConditionsAnswered(goalID, SpinCounter, symbol, destination))
                 {
-                    spinDone = true;
+                    Stop();
                 }
 
             }
-
+            //wait till spin is complete so symbols are positioned correctly
             await UniTask.WaitUntil(() => spinComplete == true);
+            //place lowest symbol on top
             GetRectTransformWithLowestY().transform.localPosition = topPosition;
+            //increase spin counter
             SpinCounter++;
+            // wait till next frame
             await UniTask.NextFrame();
 
-            if (spinDone)
+            if (spinStopped)//exit loop incase spin was stopped either from the stop conditions or from an outside "Stop"
             {
                 isSpinning = false;
+                spinStopped = false;
             }
         }
 
@@ -123,6 +132,14 @@ public class ReelController : MonoBehaviour
             }
         }
         return new Vector2(ReelCenter.transform.localPosition.x, currentHighestY);
+    }
+    public void Stop()
+    {
+        if (isSpinning)
+        {
+            spinStopped = true;
+        }
+      
     }
 
 }
