@@ -12,7 +12,10 @@ public class ReelController : MonoBehaviour
     [SerializeField] RectTransform reelCenter;
     [SerializeField] SymbolView m_SymbolViewPrefab;
     public RectTransform ReelCenter { get => reelCenter; }
+    private SymbolView lastSymbolStoppedOn;
     public bool IsSpinning { get => isSpinning;}
+    public ReelModel ReelModel { get => m_ReelModel;}
+
     bool spinStopped;
     public void InitReel(ReelModel reelModel)
     {
@@ -75,7 +78,7 @@ public class ReelController : MonoBehaviour
             //wait till spin is complete so symbols are positioned correctly
             await UniTask.WaitUntil(() => spinComplete == true);
             //place lowest symbol on top
-            GetRectTransformWithLowestY().transform.localPosition = topPosition;
+            GetSymbolWithLowestY().transform.localPosition = topPosition;
             //increase spin counter
             SpinCounter++;
             // wait till next frame
@@ -101,10 +104,27 @@ public class ReelController : MonoBehaviour
     {
         return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.1f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance
     }
+    public SymbolView GetSymbolInMiddle()
+    {
+        if (!isSpinning)
+        {
+            foreach (SymbolView symbolView in m_SymbolController.SymbolViews)
+            {
+                if(MathF.Abs(symbolView.transform.localPosition.y - ReelCenter.localPosition.y) < 0.1f)
+                {
+                    return symbolView;
+                }
+            }
+        }
+        Debug.LogError($"No Centered Symbol on {this.gameObject.name}.");
+        return null;
+
+        
+    }
     /// <summary>
     /// get lowest symbol on reel
     /// </summary>
-    public SymbolView GetRectTransformWithLowestY()
+    public SymbolView GetSymbolWithLowestY()
     {
         // Start by assuming the first element has the lowest Y value
         SymbolView lowestYSymbol = m_SymbolController.SymbolViews[0];

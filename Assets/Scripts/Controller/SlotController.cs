@@ -7,10 +7,11 @@ public class SlotController : MonoBehaviour
 {
     [SerializeField] private SlotModel slotModel;
     [SerializeField] private ReelController[] allReelControllers;
-    private List<ReelController> activeReels;
     [SerializeField] SpinButton spinButton;
     [SerializeField] SpinText spinButtonText;
-
+    private ISpinningStrategy spinningStrategy;
+    private List<ReelController> activeReels;
+    private WinConditionChecker winConditionChecker;
     bool reelsSpinning;
     bool autoActivated;
     public event Action OnSpinStarted;
@@ -19,20 +20,35 @@ public class SlotController : MonoBehaviour
     private void Awake()
     {
         activeReels = new List<ReelController>();
+        winConditionChecker = new WinConditionChecker();
+        SetSpinningStrategy(new RandomSpinningStrategy());
+        InitReels();
+
+        spinButton.OnShortPressEvent += OnShortPres;
+        spinButton.OnLongPressEvent += SetAutoTrue;
+        OnSpinStarted += DeductCostFromScore;
+        OnSpinEnded += CallWinConditionChecker;
+        OnSpinEnded += UpdateSpinButtonText;
+    }
+
+    public void SetSpinningStrategy(ISpinningStrategy strategy)
+    {
+        spinningStrategy = strategy;
+    }
+
+    private void InitReels()
+    {
         for (int i = 0; i < slotModel.ReelModels.Length; i++)
         {
             allReelControllers[i].InitReel(slotModel.ReelModels[i]);
             activeReels.Add(allReelControllers[i]);
         }
-        spinButton.OnShortPressEvent += OnShortPres;
-        spinButton.OnLongPressEvent += SetAutoTrue;
-        OnSpinStarted += DeductCostFromScore;
     }
 
     private void OnShortPres()
     {
-        if(!reelsSpinning && !autoActivated) 
-        { 
+        if (!reelsSpinning && !autoActivated)
+        {
             SpinAllReels();
             spinButtonText.SwapToStopText();
         }
@@ -44,11 +60,10 @@ public class SlotController : MonoBehaviour
 
     public void SpinAllReels()
     {
-        
-        foreach (var reelController in activeReels)
-        {
-            reelController.SpinRandom();
-        }
+        if (!slotModel.HasEnoughPoints())
+            return;
+
+        spinningStrategy?.SpinReels(activeReels);
         reelsSpinning = true;
         _ = OnReelsSpinningTask();
     }
@@ -73,7 +88,7 @@ public class SlotController : MonoBehaviour
         }
         OnSpinEnded?.Invoke();
         await UniTask.Delay(TimeSpan.FromSeconds(2));
-        if(!reelsSpinning && autoActivated)//check after 2 seconds if auto is on and player didn't manually spin the reels
+        if (!reelsSpinning && autoActivated)//check after 2 seconds if auto is on and player didn't manually spin the reels
         {
             SpinAllReels();
         }
@@ -99,5 +114,20 @@ public class SlotController : MonoBehaviour
     private void SetAutoFalse() => autoActivated = false;
 
     void DeductCostFromScore() => ScoreHandler.DeductFromScore(slotModel.SlotSpinCost);
-
+    void CallWinConditionChecker()
+    {
+        SymbolView[] symbolViews = new SymbolView[activeReels.Count];
+        for (int i = 0; i < activeReels.Count; i++)
+        {
+            symbolViews[i] = activeReels[i].GetSymbolInMiddle();
+        }
+        winConditionChecker.OnSpinEnd(symbolViews);
+    }
+    private void UpdateSpinButtonText()
+    {
+        if (!autoActivated)
+        {
+            spinButtonText.SwapToSpinText();
+        }
+    }
 }

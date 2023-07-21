@@ -9,4 +9,6 @@ public class SlotModel : ScriptableObject
     [SerializeField] int slotSpinCost;
     public ReelModel[] ReelModels { get => reelModels;}
     public int SlotSpinCost { get => slotSpinCost;}
+
+    public bool HasEnoughPoints() => ScoreHandler.GetScore() >= SlotSpinCost;
 }
