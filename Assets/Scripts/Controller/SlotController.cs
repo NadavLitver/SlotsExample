@@ -11,7 +11,8 @@ public class SlotController : MonoBehaviour
         for (int i = 0; i < slotModel.ReelModels.Length; i++)
         {
             reelControllers[i].InitReel(slotModel.ReelModels[i]);
-        }  
+        }
+       
     }
     //public void SpinAllReels()
     //{

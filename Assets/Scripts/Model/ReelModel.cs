@@ -5,6 +5,7 @@ public class ReelModel : ScriptableObject
    [SerializeField] float m_SpinningIntervals;
    [SerializeField] float m_SpinningSpeed;
    [SerializeField] SymbolModel[] m_SymbolsData;
+   
    [SerializeField] float m_DistanceBetweenSymbols;
 
    public float SpinningSpeed { get => m_SpinningSpeed;}

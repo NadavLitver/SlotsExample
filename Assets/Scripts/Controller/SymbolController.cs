@@ -2,20 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SymbolController : MonoBehaviour
+public class SymbolController
 {
-    [SerializeField] SymbolView symbolPrefab;
-    List<SymbolView> m_SymbolViews;
-    [SerializeField] RectTransform reelCenter;
-
+    private List<SymbolView> m_SymbolViews;
     public List<SymbolView> SymbolViews { get => m_SymbolViews; }
-    public RectTransform ReelCenter { get => reelCenter;}
+  
 
-    private void Awake()
+    public SymbolController()
     {
         m_SymbolViews = new List<SymbolView>();
     }
-    public void DisplayAndPositionSymbols(SymbolModel[] symbolsData, float distanceBetweenSymbols)
+    public void DisplayAndPositionSymbols(SymbolModel[] symbolsData, float distanceBetweenSymbols,RectTransform reelCenterPos, SymbolView symbolPrefab)
     {
         // Clear any existing symbols (if needed).
         ClearSymbols();
@@ -27,7 +24,7 @@ public class SymbolController : MonoBehaviour
         for (int i = 0; i < symbolsData.Length; i++)
         {
             // Create a new instance of the SymbolView.
-            SymbolView symbolViewInstance = Instantiate(symbolPrefab, transform);
+            SymbolView symbolViewInstance = Object.Instantiate(symbolPrefab, reelCenterPos.parent);
             // Set the sprite for the symbol image instance using the SymbolData's sprite.
             symbolViewInstance.Image.sprite = symbolsData[i].SymbolSprite;
             // Set Identifier Based on Symbol Data
@@ -37,13 +34,13 @@ public class SymbolController : MonoBehaviour
             // Set the position of the symbol image instance vertically based on the currentYOffset.
             if (i % 2 == 0)
             {
-                symbolViewInstance.transform.localPosition = new Vector2(ReelCenter.localPosition.x, ReelCenter.localPosition.y + currentYOffestEven);
+                symbolViewInstance.transform.localPosition = new Vector2(reelCenterPos.localPosition.x, reelCenterPos.localPosition.y + currentYOffestEven);
                 currentYOffestEven += distanceBetweenSymbols;
             }
             else
             {
                 currentYOffsetNonEven -= distanceBetweenSymbols;
-                symbolViewInstance.transform.localPosition = new Vector2(ReelCenter.localPosition.x, ReelCenter.localPosition.y + currentYOffsetNonEven);
+                symbolViewInstance.transform.localPosition = new Vector2(reelCenterPos.localPosition.x, reelCenterPos.localPosition.y + currentYOffsetNonEven);
             }
 
         }
@@ -60,9 +57,9 @@ public class SymbolController : MonoBehaviour
             return;
 
         // Destroy all child objects (symbol images) in the ReelView before displaying new symbols.
-        foreach (SymbolView createdImage in SymbolViews)
+        foreach (SymbolView symbolView in SymbolViews)
         {
-            Destroy(createdImage.gameObject);
+            Object.Destroy(symbolView.gameObject);
         }
     }
 

@@ -6,14 +6,26 @@ using UnityEngine;
 
 public class ReelController : MonoBehaviour
 {
-    [SerializeField] SymbolController m_SymbolController;
+    private SymbolController m_SymbolController;
     private ReelModel m_ReelModel;
     private bool isSpinning;
-
+    public RectTransform ReelCenter { get => reelCenter; }
+    [SerializeField] RectTransform reelCenter;
+    [SerializeField] SymbolView m_SymbolViewPrefab;
     public void InitReel(ReelModel reelModel)
     {
         m_ReelModel = reelModel;
-        m_SymbolController.DisplayAndPositionSymbols(m_ReelModel.SymbolsData, m_ReelModel.DistanceBetweenSymbols);
+        m_SymbolController = new SymbolController();
+        m_SymbolController.DisplayAndPositionSymbols(m_ReelModel.SymbolsData, m_ReelModel.DistanceBetweenSymbols, reelCenter, m_SymbolViewPrefab);
+        SpinRandom();
+
+
+    }
+    public void SpinRandom()
+    {
+        int goalID = UnityEngine.Random.Range(1, 10);
+        CallSpinReel(goalID);
+        Debug.Log($"Reel{gameObject.name} is going to end on{m_ReelModel.SymbolsData[goalID - 1].SymbolName}");
     }
     public void CallSpinReel(int goalID)
     {
@@ -74,7 +86,7 @@ public class ReelController : MonoBehaviour
 
     private bool AreStopConditionsAnswered(int goalID, int SpinCounter, SymbolView item, float destination)
     {
-        return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - m_SymbolController.ReelCenter.localPosition.y) < 0.1f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance
+        return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.1f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance
     }
     /// <summary>
     /// get lowest symbol on reel
@@ -111,7 +123,7 @@ public class ReelController : MonoBehaviour
                 currentHighestY = symbol.transform.localPosition.y;
             }
         }
-        return new Vector2 (m_SymbolController.ReelCenter.transform.localPosition.x, currentHighestY);
+        return new Vector2 (ReelCenter.transform.localPosition.x, currentHighestY);
     }
   
 }
