@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2830689874
+CRC: 532174432
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c5dcf99585d478692b5749feab90ef79
+    Hash: 6bfb333ae3c5ed48d6dc6a60455b6387
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7961862aaab2d794c12cf095dc709309
@@ -125,12 +125,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontWeightPair
 - AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphPairAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphValueRecord
-- AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.VertexGradient
 - AssemblyName: UnityEngine.CoreModule
   ClassName: UnityEngine.Events.PersistentCallGroup
@@ -163,5 +157,5 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Toggle/ToggleEvent
 Assets:
-- Assets/Prefabs/AladdinSlot_Bundle.prefab
+- Assets/Prefabs/Slots/AladdinSlot_Bundle.prefab
 Dependencies: []

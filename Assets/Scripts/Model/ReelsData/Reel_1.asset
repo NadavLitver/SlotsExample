@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Reel_1
   m_EditorClassIdentifier: 
   m_SpinningIntervals: 30
-  m_SpinningSpeed: 900
+  m_SpinningSpeed: 1100
   m_SymbolsData:
   - {fileID: 11400000, guid: c7fd47a6aafaeec4aa3c1102d947eb05, type: 2}
   - {fileID: 11400000, guid: 019fbd794a2e7874e9e2e77177d9d52d, type: 2}

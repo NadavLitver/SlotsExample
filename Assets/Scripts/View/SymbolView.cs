@@ -25,8 +25,9 @@ namespace view
         public void DrawCircleSetup()
         {
             // init variables for drawing circle
-            int numPoints = 100;
+            int numPoints = 50;
             float radius = 80f;
+            
             m_LineRenderer.positionCount = numPoints + 1;
             m_LineRenderer.useWorldSpace = false;
 
@@ -50,14 +51,14 @@ namespace view
                 // Set the position of the Line Renderer to the calculated point
                 Vector3 pos = new Vector3(x, y, 0f);
                 m_LineRenderer.SetPosition(i, pos);
-                await UniTask.NextFrame();
+                await UniTask.WaitForFixedUpdate();
             }
             await UniTask.Delay(TimeSpan.FromSeconds(0.75f));
             int currentNumberOfPoints = numPoints + 1;
             for (int i = 0; i < numPoints + 1; i++)
             {
                 m_LineRenderer.positionCount = currentNumberOfPoints--;
-                await UniTask.NextFrame();
+                await UniTask.WaitForFixedUpdate();
             }
 
         }
@@ -66,7 +67,7 @@ namespace view
         {
             Color startingColor = Image.color;
             Image.color = Color.gray;
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
             Image.color = startingColor;
 
 

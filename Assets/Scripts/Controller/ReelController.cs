@@ -93,8 +93,7 @@ namespace controller
                 GetSymbolWithLowestY().transform.localPosition = topPosition;
                 //increase spin counter
                 SpinCounter++;
-                // wait till next frame
-                await UniTask.NextFrame();
+             
 
                 if (spinStopped)//exit loop incase spin was stopped either from the stop conditions or from an outside "Stop"
                 {

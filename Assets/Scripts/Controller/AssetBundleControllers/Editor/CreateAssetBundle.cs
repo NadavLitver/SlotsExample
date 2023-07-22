@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class CreateAssetBundle : Editor
 {
-    [MenuItem("Assets/Build AssetBundles")]
-    static void BuildAllAssetBundles()
+    [MenuItem("Assets/Build AssetBundles For Android")]
+    static void BuildAllAssetBundlesAndroid()
     {
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
@@ -18,4 +18,5 @@ public class CreateAssetBundle : Editor
                                         BuildAssetBundleOptions.None,
                                         BuildTarget.Android);
     }
+  
 }

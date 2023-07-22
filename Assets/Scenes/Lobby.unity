@@ -474,8 +474,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Slots Example
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0d246cc953f8fdf419f7ae510520880c, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 0d246cc953f8fdf419f7ae510520880c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -729,6 +729,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755350003}
   m_CullTransparentMesh: 1
+--- !u!1 &1787198667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787198669}
+  - component: {fileID: 1787198668}
+  m_Layer: 0
+  m_Name: FPS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1787198668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787198667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fd6290de858474cbddd63d4b52eb0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1787198669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787198667}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.717382, y: 0.8946531, z: 5.320129}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &2028217782 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7430559893092287195, guid: a5124296534247b4098d561fe809d1da, type: 3}
@@ -742,6 +786,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1589138630}
     m_Modifications:
+    - target: {fileID: 132690074218127937, guid: a5124296534247b4098d561fe809d1da, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d246cc953f8fdf419f7ae510520880c, type: 2}
+    - target: {fileID: 132690074218127937, guid: a5124296534247b4098d561fe809d1da, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6763614655647733013, guid: a5124296534247b4098d561fe809d1da, type: 3}
       propertyPath: m_Name
       value: Slot_Alladin
@@ -843,6 +895,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Score
       objectReference: {fileID: 0}
+    - target: {fileID: 3901745651484607149, guid: 8c307a040d81a4d4a94c644ec6d5facf, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d246cc953f8fdf419f7ae510520880c, type: 2}
+    - target: {fileID: 3901745651484607149, guid: 8c307a040d81a4d4a94c644ec6d5facf, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2164040, guid: 0d246cc953f8fdf419f7ae510520880c, type: 2}
+    - target: {fileID: 3901745651484607149, guid: 8c307a040d81a4d4a94c644ec6d5facf, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6344247993858863137, guid: 8c307a040d81a4d4a94c644ec6d5facf, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -936,3 +1000,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1589138630}
   - {fileID: 858471115}
+  - {fileID: 1787198669}
