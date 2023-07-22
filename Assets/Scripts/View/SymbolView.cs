@@ -65,6 +65,10 @@ namespace view
             }
 
         }
+        public void TurnOffLineRendererCircle()
+        {
+            m_LineRenderer.positionCount = 0;
+        }
         public void CallGrayOutImage() => _ = GrayOutImage();
         private async UniTask GrayOutImage()
         {

@@ -9,7 +9,6 @@ namespace controller
     {
         public void SpinReels(List<ReelController> reels)
         {
-            // I could make this a 2d array placing the "for" inside the "for" it being more dynamic if different reels have different id's for symbols, but because they don't for now I can  do less loops and save on performance
             int[] idArray = new int[reels[0].ReelModel.SymbolsData.Length];
             for (int i = 0; i < reels[0].ReelModel.SymbolsData.Length; i++)
             {

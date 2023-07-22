@@ -50,7 +50,7 @@ namespace controller
 
             }
         }
-
+      
         private static void SetSymbolIdentifier(SymbolModel symbolData, SymbolView SymbolViewInstance)
         {
             SymbolViewInstance.SetID(symbolData.SymbolID);
@@ -67,6 +67,12 @@ namespace controller
                 Object.Destroy(symbolView.gameObject);
             }
         }
-
+        public void TurnOfCircles()
+        {
+            foreach (var symbol in SymbolViews)
+            {
+                symbol.TurnOffLineRendererCircle();
+            }
+        }
     }
 }

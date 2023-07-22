@@ -37,6 +37,7 @@ namespace controller
             CallSpinReel(goalID);
             DebugSpin(goalID);
         }
+       
         public void SpinWithGoal(int goalID)
         {
             CallSpinReel(goalID);
@@ -69,7 +70,8 @@ namespace controller
             float OneSpinTime = spinDistance / spinSpeed;
             Vector2 topPosition = GetSymbolInHighestPosition();
             int SpinCounter = 0;
-
+            //turn of winning circles
+            m_SymbolController.TurnOfCircles();
             while (isSpinning)
             {
                 //init spin variables
