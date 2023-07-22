@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 2233290812
+CRC: 2518495371
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: alladinslot_bundle
+      Dependencies: {}
+    Info_1:
+      Name: lobby_bundle
       Dependencies: {}
