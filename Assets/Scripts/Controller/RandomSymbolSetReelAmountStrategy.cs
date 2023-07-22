@@ -1,40 +1,42 @@
 using System.Collections.Generic;
-
-public class RandomSymbolSetReelAmountStrategy : ISpinningStrategy
+namespace controller
 {
-    int amountOfWinningReels;
-    public RandomSymbolSetReelAmountStrategy(int _amountOfWinningReels)
+    public class RandomSymbolSetReelAmountStrategy : ISpinningStrategy
     {
-        amountOfWinningReels = _amountOfWinningReels;
-    }
-    public void SpinReels(List<ReelController> reels)
-    {
-        int randomId = UnityEngine.Random.Range(0, reels.Count + 1);
-        for (int i = 0; i < reels.Count; i++)
+        int amountOfWinningReels;
+        public RandomSymbolSetReelAmountStrategy(int _amountOfWinningReels)
         {
-            if (i < amountOfWinningReels)
+            amountOfWinningReels = _amountOfWinningReels;
+        }
+        public void SpinReels(List<ReelController> reels)
+        {
+            int randomId = UnityEngine.Random.Range(0, reels.Count + 1);
+            for (int i = 0; i < reels.Count; i++)
             {
-                reels[i].SpinWithGoal(randomId);
-            }
-            else
-            {
-                int otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
-                if(otherRandomID == randomId)
+                if (i < amountOfWinningReels)
                 {
-                    int tries = 10;
-                    for (int j = 0; j < tries; j++)
+                    reels[i].SpinWithGoal(randomId);
+                }
+                else
+                {
+                    int otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
+                    if (otherRandomID == randomId)
                     {
-                        otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
-                        if(otherRandomID != randomId)
+                        int tries = 10;
+                        for (int j = 0; j < tries; j++)
                         {
-                            break;
+                            otherRandomID = UnityEngine.Random.Range(0, reels.Count + 1);
+                            if (otherRandomID != randomId)
+                            {
+                                break;
+                            }
                         }
                     }
-                }
-             
-                reels[i].SpinWithGoal(otherRandomID);
-            }
-        }
 
+                    reels[i].SpinWithGoal(otherRandomID);
+                }
+            }
+
+        }
     }
 }

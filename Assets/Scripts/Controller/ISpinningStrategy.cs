@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-
-public interface ISpinningStrategy
+namespace controller
 {
-    void SpinReels(List<ReelController> reels);
+    public interface ISpinningStrategy
+    {
+        void SpinReels(List<ReelController> reels);
+    }
 }

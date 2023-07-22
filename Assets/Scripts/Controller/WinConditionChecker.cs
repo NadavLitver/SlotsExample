@@ -1,74 +1,78 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class WinConditionChecker
+using model;
+using view;
+namespace controller
 {
-    public event Action<int> OnWin;
-    private int basePrize;
-    private BigWinPopupModel bigWinPopupModel;
-    private BigWinPopupViewHandler bigWinPopupView;
-
-    public WinConditionChecker(BigWinPopupModel _bigWinPopupModel, BigWinPopupViewHandler _bigWinPopupView)
+    public class WinConditionChecker
     {
-        basePrize = 5000;
-        OnWin += PrizeOfWin;
-        bigWinPopupModel = _bigWinPopupModel;
-        bigWinPopupView = _bigWinPopupView;
-    }
-    public void OnSpinEnd(SymbolView[] finishingSymbols)
-    {
+        public event Action<int> OnWin;
+        private int basePrize;
+        private BigWinPopupModel bigWinPopupModel;
+        private BigWinPopupViewHandler bigWinPopupView;
 
-        Dictionary<int, int> symbolCount = new Dictionary<int, int>();
-        // Count occurrences of each symbol ID in the finishingSymbols array
-        foreach (SymbolView symbol in finishingSymbols)
+        public WinConditionChecker(BigWinPopupModel _bigWinPopupModel, BigWinPopupViewHandler _bigWinPopupView)
         {
-            int symbolId = symbol.GetID();
-            if (symbolCount.ContainsKey(symbolId))
-                symbolCount[symbolId]++;
-            else
-                symbolCount[symbolId] = 1;
+            basePrize = 5000;
+            OnWin += PrizeOfWin;
+            bigWinPopupModel = _bigWinPopupModel;
+            bigWinPopupView = _bigWinPopupView;
         }
-
-        // Find duplicates and their counts
-
-        foreach (var kvp in symbolCount)
+        public void OnSpinEnd(SymbolView[] finishingSymbols)
         {
-            if (kvp.Value >= 3)
-            {
-                Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
-                foreach (SymbolView symbol in finishingSymbols)
-                {
-                    if (symbol.GetID() == kvp.Key)
-                    {
-                        symbol.DrawCircleSetup();
-                    }
-                    else
-                    {
-                        symbol.CallGrayOutImage();
-                    }
-                }
 
-                OnWin.Invoke(kvp.Value);
+            Dictionary<int, int> symbolCount = new Dictionary<int, int>();
+            // Count occurrences of each symbol ID in the finishingSymbols array
+            foreach (SymbolView symbol in finishingSymbols)
+            {
+                int symbolId = symbol.GetID();
+                if (symbolCount.ContainsKey(symbolId))
+                    symbolCount[symbolId]++;
+                else
+                    symbolCount[symbolId] = 1;
+            }
+
+            // Find duplicates and their counts
+
+            foreach (var kvp in symbolCount)
+            {
+                if (kvp.Value >= 3)
+                {
+                    Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
+                    foreach (SymbolView symbol in finishingSymbols)
+                    {
+                        if (symbol.GetID() == kvp.Key)
+                        {
+                            symbol.DrawCircleSetup();
+                        }
+                        else
+                        {
+                            symbol.CallGrayOutImage();
+                        }
+                    }
+
+                    OnWin.Invoke(kvp.Value);
+
+                }
 
             }
 
+
+
         }
-
-
-
-    }
-    public void PrizeOfWin(int valueMultiplier)
-    {
-        int scoreToAdd = valueMultiplier * basePrize;
-        ScoreHandler.AddToScore(scoreToAdd);
-        Debug.Log($"Added to score! {scoreToAdd}");
-        if (valueMultiplier == 5)
+        public void PrizeOfWin(int valueMultiplier)
         {
-            bigWinPopupView.gameObject.SetActive(true);
-            bigWinPopupView.Popup(bigWinPopupModel.ScaleGoal, bigWinPopupModel.ScaleToStart, bigWinPopupModel.DurationToScale,scoreToAdd);
+            int scoreToAdd = valueMultiplier * basePrize;
+            ScoreHandler.AddToScore(scoreToAdd);
+            Debug.Log($"Added to score! {scoreToAdd}");
+            if (valueMultiplier == 5)
+            {
+                bigWinPopupView.gameObject.SetActive(true);
+                bigWinPopupView.Popup(bigWinPopupModel.ScaleGoal, bigWinPopupModel.ScaleToStart, bigWinPopupModel.DurationToScale, scoreToAdd);
+            }
         }
+
+
     }
-
-
 }

@@ -1,57 +1,61 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "New StratagiesData", menuName = "Slots/StratagiesData")]
-
-public class StratagiesModel : ScriptableObject
+using controller;
+namespace model
 {
-    private RandomSpinningStrategy randomSpinningStrategy = new RandomSpinningStrategy();
-    private RandomSymbolSetReelAmountStrategy randomSymbolThreeReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(3);
-    private RandomSymbolSetReelAmountStrategy randomSymbolFourReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(4);
-    private RandomSymbolSetReelAmountStrategy randomSymbolFiveReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(5);
-    private LosingStrategy losingStrategy = new LosingStrategy();
+    [CreateAssetMenu(fileName = "New StratagiesData", menuName = "Slots/StratagiesData")]
 
-
-    public RandomSpinningStrategy RandomSpinningStrategy
+    public class StratagiesModel : ScriptableObject
     {
-        get
+        private RandomSpinningStrategy randomSpinningStrategy = new RandomSpinningStrategy();
+        private RandomSymbolSetReelAmountStrategy randomSymbolThreeReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(3);
+        private RandomSymbolSetReelAmountStrategy randomSymbolFourReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(4);
+        private RandomSymbolSetReelAmountStrategy randomSymbolFiveReelAmountStrategy = new RandomSymbolSetReelAmountStrategy(5);
+        private LosingStrategy losingStrategy = new LosingStrategy();
+
+
+        public RandomSpinningStrategy RandomSpinningStrategy
         {
-            randomSpinningStrategy ??= new RandomSpinningStrategy();
-            return randomSpinningStrategy;
+            get
+            {
+                randomSpinningStrategy ??= new RandomSpinningStrategy();
+                return randomSpinningStrategy;
+            }
         }
-    }
 
-    public RandomSymbolSetReelAmountStrategy RandomSymbolThreeReelAmountStrategy
-    {
-        get
+        public RandomSymbolSetReelAmountStrategy RandomSymbolThreeReelAmountStrategy
         {
-            randomSymbolThreeReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(3);
-            return randomSymbolThreeReelAmountStrategy;
+            get
+            {
+                randomSymbolThreeReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(3);
+                return randomSymbolThreeReelAmountStrategy;
+            }
         }
-    }
 
-    public RandomSymbolSetReelAmountStrategy RandomSymbolFourReelAmountStrategy
-    {
-        get
+        public RandomSymbolSetReelAmountStrategy RandomSymbolFourReelAmountStrategy
         {
-            randomSymbolFourReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(4);
-            return randomSymbolFourReelAmountStrategy;
+            get
+            {
+                randomSymbolFourReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(4);
+                return randomSymbolFourReelAmountStrategy;
+            }
         }
-    }
 
-    public RandomSymbolSetReelAmountStrategy RandomSymbolFiveReelAmountStrategy
-    {
-        get
+        public RandomSymbolSetReelAmountStrategy RandomSymbolFiveReelAmountStrategy
         {
-            randomSymbolFiveReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(5);
-            return randomSymbolFiveReelAmountStrategy;
+            get
+            {
+                randomSymbolFiveReelAmountStrategy ??= new RandomSymbolSetReelAmountStrategy(5);
+                return randomSymbolFiveReelAmountStrategy;
+            }
         }
-    }
 
-    public LosingStrategy LosingStrategy
-    {
-        get
+        public LosingStrategy LosingStrategy
         {
-            losingStrategy ??= new LosingStrategy();
-            return losingStrategy;
+            get
+            {
+                losingStrategy ??= new LosingStrategy();
+                return losingStrategy;
+            }
         }
     }
 }

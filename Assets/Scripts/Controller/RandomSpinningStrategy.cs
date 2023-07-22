@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-
-public class RandomSpinningStrategy : ISpinningStrategy
+namespace controller
 {
-    public void SpinReels(List<ReelController> reels)
+    public class RandomSpinningStrategy : ISpinningStrategy
     {
-        foreach (var reelController in reels)
+        public void SpinReels(List<ReelController> reels)
         {
-            reelController.SpinRandom();
+            foreach (var reelController in reels)
+            {
+                reelController.SpinRandom();
+            }
         }
     }
 }
