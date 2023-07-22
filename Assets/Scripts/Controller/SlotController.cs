@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class SlotController : MonoBehaviour
 {
-    [SerializeField] private SlotModel slotModel;
-    [SerializeField] private ReelController[] allReelControllers;
+    [SerializeField] SlotModel slotModel;
+    [SerializeField] ReelController[] allReelControllers;
     [SerializeField] SpinButton spinButton;
     [SerializeField] SpinText spinButtonText;
+    [SerializeField] BigWinPopupModel bigWinPopupModel;
+    [SerializeField] BigWinPopupViewHandler bigWinPopupViewHandler;
     private ISpinningStrategy spinningStrategy;
     private List<ReelController> activeReels;
     private WinConditionChecker winConditionChecker;
@@ -20,7 +22,7 @@ public class SlotController : MonoBehaviour
     private void Awake()
     {
         activeReels = new List<ReelController>();
-        winConditionChecker = new WinConditionChecker();
+        winConditionChecker = new WinConditionChecker(bigWinPopupModel, bigWinPopupViewHandler);
         SetSpinningStrategy(new RandomSpinningStrategy());
         InitReels();
 
@@ -90,6 +92,11 @@ public class SlotController : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(2));
         if (!reelsSpinning && autoActivated)//check after 2 seconds if auto is on and player didn't manually spin the reels
         {
+            if (isBigWinPopupAlive())
+            {
+                await UniTask.WaitUntil(() => !isBigWinPopupAlive());
+            }
+            
             SpinAllReels();
         }
     }
@@ -102,6 +109,7 @@ public class SlotController : MonoBehaviour
         spinButtonText.SwapToSpinText();
         SetAutoFalse();
     }
+    
     private void SetAutoTrue()
     {
         autoActivated = true;
@@ -130,4 +138,5 @@ public class SlotController : MonoBehaviour
             spinButtonText.SwapToSpinText();
         }
     }
+    private bool isBigWinPopupAlive() => bigWinPopupViewHandler.gameObject.activeInHierarchy;
 }

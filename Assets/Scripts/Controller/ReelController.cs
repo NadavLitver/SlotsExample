@@ -111,7 +111,7 @@ public class ReelController : MonoBehaviour
 
     private bool AreStopConditionsAnswered(int goalID, int SpinCounter, SymbolView item, float destination)
     {
-        return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.1f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance
+        return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.2f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance of the y
     }
     public SymbolView GetSymbolInMiddle()
     {
@@ -119,7 +119,7 @@ public class ReelController : MonoBehaviour
         {
             foreach (SymbolView symbolView in m_SymbolController.SymbolViews)
             {
-                if(MathF.Abs(symbolView.transform.localPosition.y - ReelCenter.localPosition.y) < 0.1f)
+                if(MathF.Abs(symbolView.transform.localPosition.y - ReelCenter.localPosition.y) < 0.2f)
                 {
                     return symbolView;
                 }

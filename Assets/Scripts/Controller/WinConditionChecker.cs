@@ -6,11 +6,15 @@ public class WinConditionChecker
 {
     public event Action<int> OnWin;
     private int basePrize;
-    public WinConditionChecker()
+    private BigWinPopupModel bigWinPopupModel;
+    private BigWinPopupViewHandler bigWinPopupView;
+
+    public WinConditionChecker(BigWinPopupModel _bigWinPopupModel, BigWinPopupViewHandler _bigWinPopupView)
     {
         basePrize = 5000;
         OnWin += PrizeOfWin;
-
+        bigWinPopupModel = _bigWinPopupModel;
+        bigWinPopupView = _bigWinPopupView;
     }
     public void OnSpinEnd(SymbolView[] finishingSymbols)
     {
@@ -27,7 +31,7 @@ public class WinConditionChecker
         }
 
         // Find duplicates and their counts
-       
+
         foreach (var kvp in symbolCount)
         {
             if (kvp.Value >= 3)
@@ -59,6 +63,12 @@ public class WinConditionChecker
         int scoreToAdd = valueMultiplier * basePrize;
         ScoreHandler.AddToScore(scoreToAdd);
         Debug.Log($"Added to score! {scoreToAdd}");
+        if (valueMultiplier == 5)
+        {
+            bigWinPopupView.gameObject.SetActive(true);
+            bigWinPopupView.Popup(bigWinPopupModel.ScaleGoal, bigWinPopupModel.ScaleToStart, bigWinPopupModel.DurationToScale,scoreToAdd);
+        }
     }
+
 
 }
