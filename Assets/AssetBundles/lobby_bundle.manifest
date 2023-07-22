@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4097270629
+CRC: 4087393356
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6d90b160f44f8845d4f4cb15f9fdd3d9
+    Hash: a79787c762b39243dd2492ad0717aa11
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1aa892e7e532d55e6d8bbb92c1ef5dd6
@@ -109,5 +109,5 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
-- Assets/Prefabs/Lobby.prefab
+- Assets/Prefabs/Bundles/Lobby/Lobby.prefab
 Dependencies: []

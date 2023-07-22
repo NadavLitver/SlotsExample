@@ -42,18 +42,22 @@ namespace controller
             {
                 if (kvp.Value >= 3)
                 {
-                    Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
-                    foreach (SymbolView symbol in finishingSymbols)
+                    if(kvp.Value < 5)//the pop up screen anyways his hiding the symbols so we can draw the circles only on 3 or 4
                     {
-                        if (symbol.GetID() == kvp.Key)
+                        Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
+                        foreach (SymbolView symbol in finishingSymbols)
                         {
-                            symbol.DrawCircleSetup();
-                        }
-                        else
-                        {
-                            symbol.CallGrayOutImage();
+                            if (symbol.GetID() == kvp.Key)
+                            {
+                                symbol.DrawCircleSetup();
+                            }
+                            else
+                            {
+                                symbol.CallGrayOutImage();
+                            }
                         }
                     }
+                   
 
                     OnWin.Invoke(kvp.Value);
 

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1562022779
+CRC: 3435371675
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: adca0eba07296d05330a17f294d5987f
+    Hash: f98950bb7563b20f05cca0b3f2b02e24
   TypeTreeHash:
     serializedVersion: 2
     Hash: e204edb23dcce9a2545cb9edc7f75176
@@ -159,5 +159,5 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Toggle/ToggleEvent
 Assets:
-- Assets/Prefabs/Slots/AladdinSlot_Bundle.prefab
+- Assets/Prefabs/Bundles/Slots/AladdinSlot_Bundle.prefab
 Dependencies: []

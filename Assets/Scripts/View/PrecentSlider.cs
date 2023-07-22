@@ -12,7 +12,7 @@ namespace view
     {
         [SerializeField] TextMeshProUGUI m_PrecentText;
         [SerializeField] Slider m_Slider;
-        private void Start()
+        private void Awake()
         {
             m_Slider.onValueChanged.AddListener(UpdateText);
         }
