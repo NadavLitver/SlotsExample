@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace controller
 {
     /// <summary>
-    /// scene loader is responsible for loading scene's asyc
+    /// scene loader is responsible for loading scene's
     /// </summary>
     public static class SceneLoader
     {
