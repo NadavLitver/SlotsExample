@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using model;
 using System;
 using UnityEngine;
-using model;
 using view;
 namespace controller
 {
@@ -18,7 +18,6 @@ namespace controller
         [SerializeField] RectTransform reelCenter;
         [SerializeField] SymbolView m_SymbolViewPrefab;
         public RectTransform ReelCenter { get => reelCenter; }
-        private SymbolView lastSymbolStoppedOn;
         public bool IsSpinning { get => isSpinning; }
         public ReelModel ReelModel { get => m_ReelModel; }
 
@@ -96,7 +95,7 @@ namespace controller
                 GetSymbolWithLowestY().transform.localPosition = topPosition;
                 //increase spin counter
                 SpinCounter++;
-             
+
 
                 if (spinStopped)//exit loop incase spin was stopped either from the stop conditions or from an outside "Stop"
                 {
@@ -110,13 +109,13 @@ namespace controller
         /// <summary>
         /// AreStopConditionsAnswered checks that 
         /// a. base amount of spins has been reached
-        /// b. current item is the item to be stopped in the middle(item is the "Goal"
+        /// b. current symbol is the symbol to be stopped on "the middle"(cuurent symbol symbol is the "Goal")
         /// c. item destination is the middle
         /// </summary>
 
-        private bool AreStopConditionsAnswered(int goalID, int SpinCounter, SymbolView item, float destination)
+        private bool AreStopConditionsAnswered(int goalID, int SpinCounter, SymbolView symbol, float destination)
         {
-            return SpinCounter > m_ReelModel.DefaultSpinCount && item.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.2f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance of the y
+            return SpinCounter > m_ReelModel.DefaultSpinCount && symbol.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.2f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance of the y
         }
         public SymbolView GetSymbolInMiddle()
         {
