@@ -16,12 +16,27 @@ namespace view
         [SerializeField] private int m_SceneIndex;
         [SerializeField] private Button m_Button;
         [SerializeField] private Slider m_PrecentSlider;
+        private ISlotDownloader m_downloaderStrategy;
+
         private event Action OnSlotClicked;
         private void Start()
         {
             CheckRelatedSceneIndex();
             m_Button.onClick.AddListener(SlotClicked);
-            OnSlotClicked += OnLoadSlotScene;
+
+            if(m_downloaderStrategy != null)
+            {
+                OnSlotClicked += OnLoadSceneWithDownloader;
+            }
+            else
+            {
+                OnSlotClicked += OnLoadScene;
+            }
+         
+        }
+        public void SetDownloaderStrategy(ISlotDownloader downloader)
+        {
+            m_downloaderStrategy = downloader;
         }
 
         private void CheckRelatedSceneIndex()
@@ -32,9 +47,15 @@ namespace view
             }
 
         }
-        void OnLoadSlotScene()
+        public void OnLoadScene()
         {
             _ = SceneLoader.LoadScene(m_SceneIndex, m_PrecentSlider);
+
+        }
+        public void OnLoadSceneWithDownloader()
+        {
+            _ = SceneLoader.LoadScene(m_SceneIndex, m_PrecentSlider, m_downloaderStrategy);
+
         }
         private void SlotClicked()
         {
@@ -43,7 +64,14 @@ namespace view
         }
         private void OnDestroy()
         {
-            OnSlotClicked -= OnLoadSlotScene;
+            if (m_downloaderStrategy != null)
+            {
+                OnSlotClicked -= OnLoadSceneWithDownloader;
+            }
+            else
+            {
+                OnSlotClicked -= OnLoadScene;
+            }
 
         }
     }

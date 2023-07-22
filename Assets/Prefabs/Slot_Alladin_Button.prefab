@@ -402,8 +402,9 @@ GameObject:
   - component: {fileID: 5833001943081778620}
   - component: {fileID: 1582862742410155159}
   - component: {fileID: 4963250208565981297}
+  - component: {fileID: 246664527101106152}
   m_Layer: 5
-  m_Name: Slot_Alladin
+  m_Name: Slot_Alladin_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,6 +527,20 @@ MonoBehaviour:
   m_SceneIndex: 1
   m_Button: {fileID: 1582862742410155159}
   m_PrecentSlider: {fileID: 3183065415856192901}
+--- !u!114 &246664527101106152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763614655647733013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe390dae3f9d89c4ea4714bf7d79d331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LoadSceneButton: {fileID: 4963250208565981297}
+  downloadStrategyDataContainer: {fileID: 11400000, guid: c01dbcd05fc5b444a8b2fca802007300, type: 2}
 --- !u!1 &7187378676450237234
 GameObject:
   m_ObjectHideFlags: 0

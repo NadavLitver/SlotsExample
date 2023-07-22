@@ -39,5 +39,23 @@ namespace controller
                 IsLoading = false;
             }
         }
+        public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider,ISlotDownloader slotDownloader)
+        {
+            await slotDownloader.DownloadSlotFromGoogleDrive();
+            if (!IsLoading)
+            {
+                IsLoading = true;
+                var asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex);
+                while (!asyncOperation.isDone)
+                {
+                    float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // Progress is from 0 to 0.9
+                    progressSlider.value = progress;
+                    await UniTask.NextFrame(); // Wait for the next frame
+                }
+                progressSlider.value = 1f; // Ensure the slider is at the max value (1) after loading is complete.
+                IsLoading = false;
+            }
+            Object.Instantiate(slotDownloader.GetDownloadedPrefab(),null);
+        }
     }
 }
