@@ -6,5 +6,7 @@ namespace controller
     {
         UniTask DownloadSlotFromGoogleDrive();
         GameObject GetDownloadedPrefab();
+        AssetBundle GetAssetBundle();
+        public void UnloadBundle();
     }
 }

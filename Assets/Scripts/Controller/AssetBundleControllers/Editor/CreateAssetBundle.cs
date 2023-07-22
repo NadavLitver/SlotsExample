@@ -18,5 +18,16 @@ public class CreateAssetBundle : Editor
                                         BuildAssetBundleOptions.None,
                                         BuildTarget.Android);
     }
-  
+    [MenuItem("Assets/Build AssetBundles For PC")]//and editor
+    static void BuildAllAssetBundlesWindows()
+    {
+        string assetBundleDirectory = "Assets/AssetBundles/Windows";
+        if (!Directory.Exists(assetBundleDirectory))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
+                                        BuildAssetBundleOptions.None,
+                                        BuildTarget.StandaloneWindows);
+    }
 }

@@ -48,7 +48,7 @@ namespace controller
                 while (!asyncOperation.isDone)
                 {
                     float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // Progress is from 0 to 0.9
-                    progressSlider.value = progress;
+                    progressSlider.value = 0.1f + progress;
                     await UniTask.NextFrame(); // Wait for the next frame
                 }
                 progressSlider.value = 1f; // Ensure the slider is at the max value (1) after loading is complete.

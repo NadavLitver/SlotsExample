@@ -21,7 +21,7 @@ namespace view
         {
             SpinButton.enabled = false;
             startingVector = _startingVector;
-            transform.DOScale(goal, duration).SetEase(Ease.InOutElastic);
+            transform.DOScale(goal, duration).SetEase(Ease.OutElastic);
             scoreText.text = scoreGain.ToString();
         }
         private void OnDisable()

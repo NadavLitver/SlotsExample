@@ -25,9 +25,8 @@ namespace view
         public void DrawCircleSetup()
         {
             // init variables for drawing circle
-            int numPoints = 50;
+            int numPoints = 25;
             float radius = 80f;
-            
             m_LineRenderer.positionCount = numPoints + 1;
             m_LineRenderer.useWorldSpace = false;
 
@@ -51,7 +50,7 @@ namespace view
                 // Set the position of the Line Renderer to the calculated point
                 Vector3 pos = new Vector3(x, y, 0f);
                 m_LineRenderer.SetPosition(i, pos);
-                await UniTask.WaitForFixedUpdate();
+                await UniTask.WaitForFixedUpdate();//make sure the for loop is creating the circle frame independent
             }
             await UniTask.Delay(TimeSpan.FromSeconds(0.75f));
             int currentNumberOfPoints = numPoints + 1;

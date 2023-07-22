@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleGoal: {x: 1, y: 1, z: 1}
   scaleToStart: {x: 0.1, y: 0.1, z: 0.1}
-  durationToScale: 0.75
+  durationToScale: 2

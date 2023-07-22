@@ -1,6 +1,9 @@
 
 using controller;
-public interface IDownloadStrategyContainer
+namespace model
 {
-    abstract ISlotDownloader SlotDownloader { get; }
+    public interface IDownloadStrategyContainer
+    {
+        abstract ISlotDownloader SlotDownloader { get; }
+    }
 }
