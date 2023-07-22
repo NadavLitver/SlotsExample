@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 namespace view
 {
+    /// <summary>
+    /// spin button is responsible for detecting inputs for the "spin","stop" and "auto" funcionalities, only invokes events.
+    /// </summary>
     public class SpinButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         [SerializeField] float longPressDuration = 1.0f; // Duration in seconds to consider a press as long press

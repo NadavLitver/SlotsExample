@@ -1,7 +1,9 @@
 using UnityEngine;
 namespace model
 {
-
+    /// <summary>
+    /// holds data for single symbol
+    /// </summary>
     [CreateAssetMenu(fileName = "New Symbol", menuName = "Slots/SymbolModel")]
     public class SymbolModel : ScriptableObject
     {

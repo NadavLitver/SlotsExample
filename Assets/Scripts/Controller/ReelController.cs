@@ -6,6 +6,9 @@ using model;
 using view;
 namespace controller
 {
+    /// <summary>
+    /// Reel controller is responsible for initializing reel models, moving the symbols and stopping them
+    /// </summary>
     public class ReelController : MonoBehaviour
     {
         private SymbolController m_SymbolController;

@@ -3,6 +3,9 @@ using UnityEngine;
 using controller;
 namespace view
 {
+    /// <summary>
+    /// text component responsible for showing score
+    /// </summary>
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class ScoreTextHandler : MonoBehaviour
     {

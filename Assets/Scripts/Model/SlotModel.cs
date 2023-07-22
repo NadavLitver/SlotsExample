@@ -2,6 +2,10 @@ using UnityEngine;
 using controller;
 namespace model
 {
+    /// <summary>
+    /// holds data for single slot (which holds multiple reels which holds multiple symbols)
+    /// slot model -> reel model -> symbol model
+    /// </summary>
     [CreateAssetMenu(fileName = "New Symbol", menuName = "Slots/SlotModel")]
 
     public class SlotModel : ScriptableObject

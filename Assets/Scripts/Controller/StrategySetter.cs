@@ -1,10 +1,13 @@
 
+using model;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using model;
 namespace controller
 {
+    /// <summary>
+    /// StrategySetter is responsible for setting the spinning strategy for the slot controller (the dropdown)
+    /// </summary>
     public class StrategySetter : MonoBehaviour
     {
         [SerializeField] SlotController slotController;

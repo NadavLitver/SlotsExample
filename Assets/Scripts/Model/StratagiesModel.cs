@@ -2,6 +2,9 @@ using UnityEngine;
 using controller;
 namespace model
 {
+    /// <summary>
+    /// scriptable object for holding concrete implementations of different spinning stratagies see "Stratagies setter" (the dropdown to swap spinning stratagies)
+    /// </summary>
     [CreateAssetMenu(fileName = "New StratagiesData", menuName = "Slots/StratagiesData")]
 
     public class StratagiesModel : ScriptableObject

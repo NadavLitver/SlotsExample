@@ -6,6 +6,15 @@ using model;
 using view;
 namespace controller
 {
+    /// <summary>
+    /// slot controller is probably the biggest script in this project
+    /// it is responsible for the state of the slot
+    /// initializing the reels
+    /// calling when the reels should spin
+    /// invoking events when reels/slot has started spinning and when its stopped
+    /// it can recieve different spinning stratagies
+    /// 
+    /// </summary>
     public class SlotController : MonoBehaviour
     {
         [SerializeField] SlotModel slotModel;
@@ -14,11 +23,13 @@ namespace controller
         [SerializeField] SpinText spinButtonText;
         [SerializeField] BigWinPopupModel bigWinPopupModel;
         [SerializeField] BigWinPopupViewHandler bigWinPopupViewHandler;
+
         private ISpinningStrategy spinningStrategy;
         private List<ReelController> activeReels;
         private WinConditionChecker winConditionChecker;
-        bool reelsSpinning;
-        bool autoActivated;
+        private bool reelsSpinning;
+        private bool autoActivated;
+
         public event Action OnSpinStarted;
         public event Action OnSpinEnded;
 
@@ -95,7 +106,7 @@ namespace controller
             await UniTask.Delay(TimeSpan.FromSeconds(2));
             if (!reelsSpinning && autoActivated)//check after 2 seconds if auto is on and player didn't manually spin the reels
             {
-                if (isBigWinPopupAlive())
+                if (isBigWinPopupAlive())//wait till popup is closed in case auto spinning is activated
                 {
                     await UniTask.WaitUntil(() => !isBigWinPopupAlive());
                 }

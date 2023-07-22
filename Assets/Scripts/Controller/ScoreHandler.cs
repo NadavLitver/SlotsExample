@@ -41,7 +41,7 @@ namespace controller
         }
         public static void DeductFromScore(int amount)
         {
-            // Add an amount to the player's current score.
+            // Deduct an amount to the player's current score.
             int currentScore = GetScore();
             currentScore -= amount;
             SetScore(currentScore);

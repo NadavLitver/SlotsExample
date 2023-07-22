@@ -5,6 +5,9 @@ using model;
 using view;
 namespace controller
 {
+    /// <summary>
+    /// win condition checker is responsible for checking the win, giving the points and notifing the popup
+    /// </summary>
     public class WinConditionChecker
     {
         public event Action<int> OnWin;
@@ -35,7 +38,7 @@ namespace controller
 
             // Find duplicates and their counts
 
-            foreach (var kvp in symbolCount)
+            foreach (KeyValuePair<int,int> kvp in symbolCount)//kvp key is the "symbol" identified using an int id and the value is the amount it has repeated
             {
                 if (kvp.Value >= 3)
                 {
@@ -61,12 +64,12 @@ namespace controller
 
 
         }
-        public void PrizeOfWin(int valueMultiplier)
+        public void PrizeOfWin(int winValue)//give the user his points and notify the "popup" if needed
         {
-            int scoreToAdd = valueMultiplier * basePrize;
+            int scoreToAdd = winValue * basePrize;
             ScoreHandler.AddToScore(scoreToAdd);
             Debug.Log($"Added to score! {scoreToAdd}");
-            if (valueMultiplier == 5)
+            if (winValue == 5)
             {
                 bigWinPopupView.gameObject.SetActive(true);
                 bigWinPopupView.Popup(bigWinPopupModel.ScaleGoal, bigWinPopupModel.ScaleToStart, bigWinPopupModel.DurationToScale, scoreToAdd);

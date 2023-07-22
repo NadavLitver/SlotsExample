@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace view
 {
+    /// <summary>
+    /// symbol view is responsible for for single symbol view funcionality such as visuals and detection getting the Image/ID, graying out the symbol and drawing a circle.
+    /// </summary>
     public class SymbolView : MonoBehaviour
     {
         private int m_ID;
@@ -50,11 +53,12 @@ namespace view
                 // Set the position of the Line Renderer to the calculated point
                 Vector3 pos = new Vector3(x, y, 0f);
                 m_LineRenderer.SetPosition(i, pos);
-                await UniTask.WaitForFixedUpdate();//make sure the for loop is creating the circle frame independent
+                await UniTask.WaitForFixedUpdate();//make sure the "for" loop is creating the circle frame independently
             }
             await UniTask.Delay(TimeSpan.FromSeconds(0.75f));
             int currentNumberOfPoints = numPoints + 1;
-            for (int i = 0; i < numPoints + 1; i++)
+
+            for (int i = 0; i < numPoints + 1; i++)//remove circle
             {
                 m_LineRenderer.positionCount = currentNumberOfPoints--;
                 await UniTask.WaitForFixedUpdate();

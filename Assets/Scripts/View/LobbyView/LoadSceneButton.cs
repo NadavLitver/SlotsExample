@@ -9,6 +9,7 @@ namespace view
     /// <summary>
     /// This script is responsible for detecting the player pressing on the slot in lobby and invoking an event
     /// This slot button implementation is dependent on the "SceneLoader" in order to load scene.
+    /// if a Slot downloader was set it will pass it along to the scene loader in order to download the asset bundle when before moving a scene
     /// </summary>
     [RequireComponent(typeof(Button))]
     public class LoadSceneButton : MonoBehaviour

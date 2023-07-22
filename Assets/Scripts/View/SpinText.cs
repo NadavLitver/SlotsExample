@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 namespace view
 {
+    /// <summary>
+    /// spin text is used to update the text on the spin button
+    /// </summary>
     public class SpinText : MonoBehaviour
     {
         [SerializeField] SpinButton spinButton;

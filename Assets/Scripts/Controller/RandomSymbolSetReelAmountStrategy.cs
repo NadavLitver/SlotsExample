@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 namespace controller
 {
+    /// <summary>
+    /// Implementation for setting the amount of winning reels with a random "symbol"
+    /// </summary>
     public class RandomSymbolSetReelAmountStrategy : ISpinningStrategy
     {
         int amountOfWinningReels;

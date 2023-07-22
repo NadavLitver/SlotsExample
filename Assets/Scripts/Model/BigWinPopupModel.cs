@@ -1,6 +1,9 @@
 using UnityEngine;
 namespace model
 {
+    /// <summary>
+    /// responsible for storing the data about for the popup tween/animation
+    /// </summary>
     [CreateAssetMenu(fileName = "New PopupModel", menuName = "Slots/BigWinPopupModel")]
 
     public class BigWinPopupModel : ScriptableObject

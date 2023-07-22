@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace controller
 {
+    /// <summary>
+    /// scene loader is responsible for loading scene's asyc
+    /// </summary>
     public static class SceneLoader
     {
         public static bool IsLoading { get; private set; }
@@ -38,6 +41,7 @@ namespace controller
                 IsLoading = false;
             }
         }
+        //load a scene asynchronously using a Scene object And an slider to to show progress and executing a "SlotDownloader"
         public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider, ISlotDownloader slotDownloader)
         {
             await slotDownloader.DownloadSlotFromGoogleDrive();
@@ -48,7 +52,7 @@ namespace controller
                 while (!asyncOperation.isDone)
                 {
                     float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f); // Progress is from 0 to 0.9
-                    progressSlider.value = 0.1f + progress;
+                    progressSlider.value = progress;
                     await UniTask.NextFrame(); // Wait for the next frame
                 }
                 progressSlider.value = 1f; // Ensure the slider is at the max value (1) after loading is complete.

@@ -4,6 +4,9 @@ using view;
 using model;
 namespace controller
 {
+    /// <summary>
+    /// symbol controllers is responsible for getting symbol models and updating the view
+    /// </summary>
     public class SymbolController
     {
         private List<SymbolView> m_SymbolViews;

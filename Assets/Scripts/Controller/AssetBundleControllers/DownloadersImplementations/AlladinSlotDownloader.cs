@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 namespace controller
 {
+    /// <summary>
+    /// the concrete implementation for downloading the alladin slot scene(prefab)
+    /// </summary>
     public class AlladinSlotDownloader : ISlotDownloader
     {
         private const string AndroidAssetBundleGoogleDriveLink = "https://drive.google.com/uc?export=download&id=1MgsxGbhqDf_HNT5mBIZiiVOOyjdJpaeo";

@@ -477,7 +477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Buttom: {fileID: 7567265698353717705}
-  downloadStrategyDataContainer: {fileID: 11400000, guid: c01dbcd05fc5b444a8b2fca802007300, type: 2}
 --- !u!224 &7192750330985310778 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4635181549798674381, guid: ba48cc75b20a0214390f9badb7a37ac1, type: 3}

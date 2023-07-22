@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace view
 {
+    /// <summary>
+    /// responsible on unloading all asset bundles on button pressed 
+    /// </summary>
     public class SceneUnloaderButton : MonoBehaviour
     {
         [SerializeField] Button m_Buttom;

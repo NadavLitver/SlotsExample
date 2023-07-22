@@ -1,6 +1,9 @@
 using UnityEngine;
 namespace model
 {
+    /// <summary>
+    /// Holds all single reel data
+    /// </summary>
     [CreateAssetMenu(fileName = "New ReelModel", menuName = "Slots/ReelData")]
     public class ReelModel : ScriptableObject
     {

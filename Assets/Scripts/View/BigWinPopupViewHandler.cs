@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace view
 {
+    /// <summary>
+    /// the "View" of the popup resposible for the tween execution
+    /// </summary>
     public class BigWinPopupViewHandler : MonoBehaviour
     {
         private Vector3 startingVector;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button mainButton;
-        [SerializeField] private SpinButton SpinButton;
+        [SerializeField] private SpinButton spinButton;
         [SerializeField] private TextMeshProUGUI scoreText;
         private void Awake()
         {
@@ -19,14 +22,14 @@ namespace view
 
         public void Popup(Vector3 goal, Vector3 _startingVector, float duration, int scoreGain)
         {
-            SpinButton.enabled = false;
+            spinButton.enabled = false;
             startingVector = _startingVector;
             transform.DOScale(goal, duration).SetEase(Ease.OutElastic);
             scoreText.text = scoreGain.ToString();
         }
         private void OnDisable()
         {
-            SpinButton.enabled = true;
+            spinButton.enabled = true;
             transform.localScale = startingVector;
             scoreText.text = string.Empty;
         }
