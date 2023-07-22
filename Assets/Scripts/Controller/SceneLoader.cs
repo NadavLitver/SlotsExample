@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace controller
@@ -15,7 +14,7 @@ namespace controller
                 IsLoading = true;
                 var asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex);
                 while (!asyncOperation.isDone)
-                { 
+                {
                     await UniTask.Yield(); // no need to be frame perfect so i chose yield over next frame
                 }
                 IsLoading = false;
@@ -39,7 +38,7 @@ namespace controller
                 IsLoading = false;
             }
         }
-        public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider,ISlotDownloader slotDownloader)
+        public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider, ISlotDownloader slotDownloader)
         {
             await slotDownloader.DownloadSlotFromGoogleDrive();
             if (!IsLoading)
@@ -55,7 +54,7 @@ namespace controller
                 progressSlider.value = 1f; // Ensure the slider is at the max value (1) after loading is complete.
                 IsLoading = false;
             }
-            Object.Instantiate(slotDownloader.GetDownloadedPrefab(),null);
+            Object.Instantiate(slotDownloader.GetDownloadedPrefab(), null);
         }
     }
 }
