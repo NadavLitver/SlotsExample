@@ -16,7 +16,6 @@ namespace controller
         AssetBundle downloadedBundle;
         public async UniTask DownloadSlotFromGoogleDrive()
         {
-            UnloadBundle();
 #if UNITY_EDITOR
             UnityWebRequest webRequest = UnityWebRequest.Get(WindowsAssetBundleGoogleDriveLink);
 #else
@@ -51,11 +50,11 @@ namespace controller
         {
             return downloadedBundle;
         }
-        public void UnloadBundle()
+        public void UnloadBundle(bool removeRelatedObjects)
         {
             if (downloadedBundle != null)
             {
-                downloadedBundle.Unload(true);
+                downloadedBundle.Unload(removeRelatedObjects);
                 downloadedBundle=null;
             }
         }

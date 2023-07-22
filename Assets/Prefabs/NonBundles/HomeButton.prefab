@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1177893673271023116}
   - component: {fileID: 9008599559673079713}
   - component: {fileID: 1763252645805888673}
-  - component: {fileID: 6738966730658691650}
+  - component: {fileID: 5716358862019750990}
   m_Layer: 5
   m_Name: HomeButton
   m_TagString: Untagged
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_SceneIndex: 0
   m_Button: {fileID: 9008599559673079713}
   m_PrecentSlider: {fileID: 3467924316738561725}
---- !u!114 &6738966730658691650
+--- !u!114 &5716358862019750990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

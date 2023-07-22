@@ -15,6 +15,7 @@ public class LobbyInit : MonoBehaviour
     private async UniTask Init()
     {
         await SceneLoader.LoadScene(1, ProgressBar, lobbyDownloaderContainer.Downloader);
+        lobbyDownloaderContainer.Downloader.UnloadBundle(false);
 
     }
   

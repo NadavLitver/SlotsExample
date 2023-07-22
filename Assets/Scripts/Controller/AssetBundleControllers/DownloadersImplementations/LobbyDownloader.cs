@@ -14,7 +14,6 @@ public class LobbyDownloader : IAssetBundleDownloader
   
     public async UniTask DownloadSlotFromGoogleDrive()
     {
-        UnloadBundle();
 #if UNITY_EDITOR
         UnityWebRequest webRequest = UnityWebRequest.Get(WindowsAssetBundleGoogleDriveLink);
 #else
@@ -49,11 +48,11 @@ public class LobbyDownloader : IAssetBundleDownloader
     {
         return downloadedBundle;
     }
-    public void UnloadBundle()
+    public void UnloadBundle(bool RemoveRelatedObjects)
     {
         if (downloadedBundle != null)
         {
-            downloadedBundle.Unload(true);
+            downloadedBundle.Unload(false);
             downloadedBundle = null;
         }
     }
