@@ -7,6 +7,6 @@ namespace model
     /// </summary>
     public interface IDownloadStrategyContainer
     {
-        abstract ISlotDownloader SlotDownloader { get; }
+        abstract IAssetBundleDownloader Downloader { get; }
     }
 }

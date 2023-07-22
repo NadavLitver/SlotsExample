@@ -5,7 +5,7 @@ namespace controller
     /// <summary>
     /// an interface for creating downloaders implementations
     /// </summary>
-    public interface ISlotDownloader
+    public interface IAssetBundleDownloader
     {
         UniTask DownloadSlotFromGoogleDrive();
         GameObject GetDownloadedPrefab();

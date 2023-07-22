@@ -12,7 +12,7 @@ namespace controller
         [SerializeField] DownloadStrategyDataContainer downloadStrategyDataContainer;
         private void Awake()
         {
-            m_LoadSceneButton.SetDownloaderStrategy(downloadStrategyDataContainer.SlotDownloader);
+            m_LoadSceneButton.SetDownloaderStrategy(downloadStrategyDataContainer.Downloader);
         }
     }
 }

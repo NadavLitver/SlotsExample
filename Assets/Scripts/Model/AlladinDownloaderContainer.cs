@@ -10,15 +10,15 @@ namespace model
     
     public class AlladinDownloaderContainer : DownloadStrategyDataContainer
     {
-        public override ISlotDownloader SlotDownloader
+        public override IAssetBundleDownloader Downloader
         {
             get
             {
-                slotDownloader ??= new AlladinSlotDownloader();
-                return slotDownloader;
+                downloader ??= new AlladinSlotDownloader();
+                return downloader;
             }
         }
-        private ISlotDownloader slotDownloader;
+        private IAssetBundleDownloader downloader;
 
 
     }

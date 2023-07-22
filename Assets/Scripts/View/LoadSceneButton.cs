@@ -17,7 +17,7 @@ namespace view
         [SerializeField] private int m_SceneIndex;
         [SerializeField] private Button m_Button;
         [SerializeField] private Slider m_PrecentSlider;
-        private ISlotDownloader m_downloaderStrategy;
+        private IAssetBundleDownloader m_downloaderStrategy;
 
         private event Action OnSlotClicked;
         private void Start()
@@ -35,7 +35,7 @@ namespace view
             }
          
         }
-        public void SetDownloaderStrategy(ISlotDownloader downloader)
+        public void SetDownloaderStrategy(IAssetBundleDownloader downloader)
         {
             m_downloaderStrategy = downloader;
         }

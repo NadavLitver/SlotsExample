@@ -7,7 +7,7 @@ namespace model
     /// </summary>
     public abstract class DownloadStrategyDataContainer : ScriptableObject, IDownloadStrategyContainer
     {
-        public abstract ISlotDownloader SlotDownloader { get; }
+        public abstract IAssetBundleDownloader Downloader { get; }
 
     }
 }

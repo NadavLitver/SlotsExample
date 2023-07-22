@@ -41,10 +41,10 @@ namespace controller
                 IsLoading = false;
             }
         }
-        //load a scene asynchronously using a Scene object And an slider to to show progress and executing a "SlotDownloader"
-        public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider, ISlotDownloader slotDownloader)
+        //load a scene asynchronously using a Scene object And an slider to to show progress and executing a "Downloader"
+        public static async UniTask LoadScene(int sceneBuildIndex, UnityEngine.UI.Slider progressSlider, IAssetBundleDownloader Downloader)
         {
-            await slotDownloader.DownloadSlotFromGoogleDrive();
+            await Downloader.DownloadSlotFromGoogleDrive();
             if (!IsLoading)
             {
                 IsLoading = true;
@@ -58,7 +58,7 @@ namespace controller
                 progressSlider.value = 1f; // Ensure the slider is at the max value (1) after loading is complete.
                 IsLoading = false;
             }
-            Object.Instantiate(slotDownloader.GetDownloadedPrefab(), null);
+            Object.Instantiate(Downloader.GetDownloadedPrefab(), null);
         }
     }
 }
