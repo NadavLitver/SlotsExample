@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using model;
 using view;
+using System.Linq;
+
 namespace controller
 {
     /// <summary>
@@ -10,7 +12,7 @@ namespace controller
     /// </summary>
     public class WinConditionChecker
     {
-        public event Action<int> OnWin;
+        public event Action<int,bool> OnWin;
         private int basePrize;
         private BigWinPopupModel bigWinPopupModel;
         private BigWinPopupViewHandler bigWinPopupView;
@@ -24,6 +26,9 @@ namespace controller
         }
         public void OnSpinEndCheckRows(SymbolView[][] symbolRows)
         {
+            List<int> allWinValues = new List<int>(); // Store all winning values for each row
+            bool anyRowFullyFilled = false;
+
             foreach (SymbolView[] symbolsInRow in symbolRows)
             {
                 Dictionary<int, int> symbolCount = new Dictionary<int, int>();
@@ -54,10 +59,9 @@ namespace controller
                                 consecutiveCount++;
                                 if (consecutiveCount >= 3)
                                 {
-                                    if (kvp.Value < 5)
+                                    if (kvp.Value < symbolsInRow.Length)
                                     {
                                         Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
-
                                         for (int j = i - consecutiveCount + 1; j <= i; j++)
                                         {
                                             symbolsInRow[j].DrawCircleSetup();
@@ -67,7 +71,11 @@ namespace controller
                                             symbolsInRow[j].CallGrayOutImage();
                                         }
                                     }
-                                    OnWin.Invoke(kvp.Value);
+                                    else
+                                    {
+                                        anyRowFullyFilled = true;
+                                    }
+                                    allWinValues.Add(kvp.Value); // Store the winning value
                                     break;
                                 }
                             }
@@ -79,13 +87,19 @@ namespace controller
                     }
                 }
             }
+
+            // Calculate the total win value
+            int totalWinValue = allWinValues.Sum();
+
+            // Invoke OnWin once with the total win value
+            OnWin.Invoke(totalWinValue, anyRowFullyFilled);
         }
-        public void PrizeOfWin(int winValue)//give the user his points and notify the "popup" if needed
+        public void PrizeOfWin(int _winValue,bool _anyRowFullyFilled)//give the user his points and notify the "popup" if needed
         {
-            int scoreToAdd = winValue * basePrize;
+            int scoreToAdd = _winValue * basePrize;
             ScoreHandler.AddToScore(scoreToAdd);
             Debug.Log($"Added to score! {scoreToAdd}");
-            if (winValue == 5)
+            if (_anyRowFullyFilled)
             {
                 bigWinPopupView.gameObject.SetActive(true);
                 bigWinPopupView.Popup(bigWinPopupModel.ScaleGoal, bigWinPopupModel.ScaleToStart, bigWinPopupModel.DurationToScale, scoreToAdd);
