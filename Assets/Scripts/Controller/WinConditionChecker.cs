@@ -1,9 +1,9 @@
+using model;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using model;
-using view;
 using System.Linq;
+using UnityEngine;
+using view;
 
 namespace controller
 {
@@ -12,10 +12,11 @@ namespace controller
     /// </summary>
     public class WinConditionChecker
     {
-        public event Action<int,bool> OnWin;
+        public event Action<int, bool> OnWin;
         private int basePrize;
         private BigWinPopupModel bigWinPopupModel;
         private BigWinPopupViewHandler bigWinPopupView;
+        private const int minSymbolDuplicationForWin = 3;
 
         public WinConditionChecker(BigWinPopupModel _bigWinPopupModel, BigWinPopupViewHandler _bigWinPopupView)
         {
@@ -47,43 +48,47 @@ namespace controller
                 // Find duplicates and their counts
                 foreach (KeyValuePair<int, int> kvp in symbolCount)
                 {
-                    if (kvp.Value >= 3)
+                    if (kvp.Value >= minSymbolDuplicationForWin)//check for duplicates
                     {
+                        if(kvp.Value == symbolsInRow.Length)//dont look for count consecutive symbols if the whole row is filled with same value anyway
+                        {
+                            anyRowFullyFilled = true;
+                            allWinValues.Add(kvp.Value);
+                            break;
+                        }
                         consecutiveCounts.Clear(); // Clear the list before checking consecutive occurrences
                         int consecutiveCount = 0;
 
-                        for (int i = 0; i < symbolsInRow.Length; i++)
+                        for (int i = 0; i < symbolsInRow.Length; i++)//go over all symbols in row 
                         {
-                            if (symbolsInRow[i].GetID() == kvp.Key)
+                            if (symbolsInRow[i].GetID() == kvp.Key)//
                             {
                                 consecutiveCount++;
-                                if (consecutiveCount >= 3)
-                                {
-                                    if (kvp.Value < symbolsInRow.Length)
-                                    {
-                                        Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
-                                        for (int j = i - consecutiveCount + 1; j <= i; j++)
-                                        {
-                                            symbolsInRow[j].DrawCircleSetup();
-                                        }
-                                        for (int j = i + 1; j < symbolsInRow.Length && j <= i + 2; j++)
-                                        {
-                                            symbolsInRow[j].CallGrayOutImage();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        anyRowFullyFilled = true;
-                                    }
-                                    allWinValues.Add(kvp.Value); // Store the winning value
-                                    break;
-                                }
                             }
                             else
                             {
+                                if (consecutiveCount >= minSymbolDuplicationForWin)
+                                {
+
+                                    Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
+                                    for (int j = i - consecutiveCount; j <= i - 1; j++)
+                                    {
+                                        symbolsInRow[j].DrawCircleSetup();
+                                    }
+                                    for (int j = i; j < symbolsInRow.Length; j++)
+                                    {
+                                        symbolsInRow[j].CallGrayOutImage();
+                                    }
+
+
+                                    allWinValues.Add(kvp.Value); // Store the winning value
+                                    break;
+                                }
                                 consecutiveCount = 0; // Reset consecutive count if symbols are not the same
                             }
+
                         }
+
                     }
                 }
             }
@@ -94,7 +99,7 @@ namespace controller
             // Invoke OnWin once with the total win value
             OnWin.Invoke(totalWinValue, anyRowFullyFilled);
         }
-        public void PrizeOfWin(int _winValue,bool _anyRowFullyFilled)//give the user his points and notify the "popup" if needed
+        public void PrizeOfWin(int _winValue, bool _anyRowFullyFilled)//give the user his points and notify the "popup" if needed
         {
             int scoreToAdd = _winValue * basePrize;
             ScoreHandler.AddToScore(scoreToAdd);

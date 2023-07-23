@@ -49,8 +49,21 @@ namespace controller
                 }
 
             }
+            ShuffleSymbolPositions();
         }
-      
+        public void ShuffleSymbolPositions()
+        {
+            int n = m_SymbolViews.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = Random.Range(0, n + 1);
+                // Swap the local positions at indices k and n
+                Vector3 tempPosition = m_SymbolViews[k].transform.localPosition;
+                m_SymbolViews[k].transform.localPosition = m_SymbolViews[n].transform.localPosition;
+                m_SymbolViews[n].transform.localPosition = tempPosition;
+            }
+        }
         private static void SetSymbolIdentifier(SymbolModel symbolData, SymbolView SymbolViewInstance)
         {
             SymbolViewInstance.SetID(symbolData.SymbolID);
