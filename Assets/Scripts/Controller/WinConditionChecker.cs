@@ -22,51 +22,63 @@ namespace controller
             bigWinPopupModel = _bigWinPopupModel;
             bigWinPopupView = _bigWinPopupView;
         }
-        public void OnSpinEnd(SymbolView[] finishingSymbols)
+        public void OnSpinEndCheckRows(SymbolView[][] symbolRows)
         {
-
-            Dictionary<int, int> symbolCount = new Dictionary<int, int>();
-            // Count occurrences of each symbol ID in the finishingSymbols array
-            foreach (SymbolView symbol in finishingSymbols)
+            foreach (SymbolView[] symbolsInRow in symbolRows)
             {
-                int symbolId = symbol.GetID();
-                if (symbolCount.ContainsKey(symbolId))
-                    symbolCount[symbolId]++;
-                else
-                    symbolCount[symbolId] = 1;
-            }
+                Dictionary<int, int> symbolCount = new Dictionary<int, int>();
+                List<int> consecutiveCounts = new List<int>(); // Store the consecutive counts for each symbol ID
 
-            // Find duplicates and their counts
-
-            foreach (KeyValuePair<int,int> kvp in symbolCount)//kvp key is the "symbol" identified using an int id and the value is the amount it has repeated
-            {
-                if (kvp.Value >= 3)
+                // Count occurrences of each symbol ID in the row
+                foreach (SymbolView symbol in symbolsInRow)
                 {
-                    if(kvp.Value < 5)//the pop up screen anyways his hiding the symbols so we can draw the circles only on 3 or 4
+                    int symbolId = symbol.GetID();
+                    if (symbolCount.ContainsKey(symbolId))
+                        symbolCount[symbolId]++;
+                    else
+                        symbolCount[symbolId] = 1;
+                }
+
+                // Find duplicates and their counts
+                foreach (KeyValuePair<int, int> kvp in symbolCount)
+                {
+                    if (kvp.Value >= 3)
                     {
-                        Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
-                        foreach (SymbolView symbol in finishingSymbols)
+                        consecutiveCounts.Clear(); // Clear the list before checking consecutive occurrences
+                        int consecutiveCount = 0;
+
+                        for (int i = 0; i < symbolsInRow.Length; i++)
                         {
-                            if (symbol.GetID() == kvp.Key)
+                            if (symbolsInRow[i].GetID() == kvp.Key)
                             {
-                                symbol.DrawCircleSetup();
+                                consecutiveCount++;
+                                if (consecutiveCount >= 3)
+                                {
+                                    if (kvp.Value < 5)
+                                    {
+                                        Debug.Log($"Duplicates and their counts:\n Symbol ID {kvp.Key} has {kvp.Value} occurrences.");
+
+                                        for (int j = i - consecutiveCount + 1; j <= i; j++)
+                                        {
+                                            symbolsInRow[j].DrawCircleSetup();
+                                        }
+                                        for (int j = i + 1; j < symbolsInRow.Length && j <= i + 2; j++)
+                                        {
+                                            symbolsInRow[j].CallGrayOutImage();
+                                        }
+                                    }
+                                    OnWin.Invoke(kvp.Value);
+                                    break;
+                                }
                             }
                             else
                             {
-                                symbol.CallGrayOutImage();
+                                consecutiveCount = 0; // Reset consecutive count if symbols are not the same
                             }
                         }
                     }
-                   
-
-                    OnWin.Invoke(kvp.Value);
-
                 }
-
             }
-
-
-
         }
         public void PrizeOfWin(int winValue)//give the user his points and notify the "popup" if needed
         {

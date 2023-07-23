@@ -22,12 +22,19 @@ namespace controller
         public ReelModel ReelModel { get => m_ReelModel; }
 
         bool spinStopped;
+        private Vector3 middleRowCenterPos;
+        private Vector3 rowAboveMidCenterPos;
+        private Vector3 rowBelowMidCenterPos;
+        private const float yPosTolerance = 0.2f;
         public void InitReel(ReelModel reelModel)
         {
             m_ReelModel = reelModel;
             m_SymbolController = new SymbolController();
             m_SymbolController.DisplayAndPositionSymbols(m_ReelModel.SymbolsData, m_ReelModel.DistanceBetweenSymbols, reelCenter, m_SymbolViewPrefab);
             // SpinRandom();
+            middleRowCenterPos = reelCenter.localPosition;
+            rowAboveMidCenterPos = middleRowCenterPos + (reelModel.DistanceBetweenSymbols * Vector3.up);
+            rowBelowMidCenterPos = middleRowCenterPos - (reelModel.DistanceBetweenSymbols * Vector3.up);
 
 
         }
@@ -117,7 +124,7 @@ namespace controller
 
         private bool AreStopConditionsAnswered(int goalID, int SpinCounter, SymbolView symbol, float destination)
         {
-            return SpinCounter > m_ReelModel.DefaultSpinCount && symbol.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < 0.2f;/// do tween had a 0.00003 error so I used the "absolute value" of the distance of the y
+            return SpinCounter > m_ReelModel.DefaultSpinCount && symbol.GetID() == goalID && MathF.Abs(destination - ReelCenter.localPosition.y) < yPosTolerance;/// do tween had a 0.00003 error so I used the "absolute value" of the distance of the y
         }
         public SymbolView GetSymbolInMiddle()
         {
@@ -125,7 +132,41 @@ namespace controller
             {
                 foreach (SymbolView symbolView in m_SymbolController.SymbolViews)
                 {
-                    if (MathF.Abs(symbolView.transform.localPosition.y - ReelCenter.localPosition.y) < 0.2f)
+                    if (MathF.Abs(symbolView.transform.localPosition.y - middleRowCenterPos.y) < yPosTolerance)
+                    {
+                        return symbolView;
+                    }
+                }
+            }
+            Debug.LogError($"No Centered Symbol on {this.gameObject.name}.");
+            return null;
+
+
+        }
+        public SymbolView GetSymbolAboveMiddle()
+        {
+            if (!isSpinning)
+            {
+                foreach (SymbolView symbolView in m_SymbolController.SymbolViews)
+                {
+                    if (MathF.Abs(symbolView.transform.localPosition.y - rowAboveMidCenterPos.y) < yPosTolerance)
+                    {
+                        return symbolView;
+                    }
+                }
+            }
+            Debug.LogError($"No Centered Symbol on {this.gameObject.name}.");
+            return null;
+
+
+        }
+        public SymbolView GetSymbolBelowMiddle()
+        {
+            if (!isSpinning)
+            {
+                foreach (SymbolView symbolView in m_SymbolController.SymbolViews)
+                {
+                    if (MathF.Abs(symbolView.transform.localPosition.y - rowBelowMidCenterPos.y) < yPosTolerance)
                     {
                         return symbolView;
                     }
@@ -183,4 +224,5 @@ namespace controller
         }
 
     }
+    
 }

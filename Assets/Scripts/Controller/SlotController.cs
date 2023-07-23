@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using model;
 using view;
+using static UnityEngine.Rendering.DebugUI.Table;
+
 namespace controller
 {
     /// <summary>
@@ -43,7 +45,7 @@ namespace controller
             spinButton.OnShortPressEvent += OnShortPres;
             spinButton.OnLongPressEvent += SetAutoTrue;
             OnSpinStarted += DeductCostFromScore;
-            OnSpinEnded += CallWinConditionChecker;
+            OnSpinEnded += CallCheckWinConditionMet;
             OnSpinEnded += UpdateSpinButtonText;
         }
 
@@ -136,14 +138,39 @@ namespace controller
         private void SetAutoFalse() => autoActivated = false;
 
         void DeductCostFromScore() => ScoreHandler.DeductFromScore(slotModel.SlotSpinCost);
-        void CallWinConditionChecker()
+        void CallCheckWinConditionMet()
+        {
+            SymbolView[][] rowsToCheck = new SymbolView[][] { GetRowAboveMiddle(), GetMidRow(), GetRowBelowMiddle() };
+
+            winConditionChecker.OnSpinEndCheckRows(rowsToCheck);
+        }
+
+        private SymbolView[] GetMidRow()
         {
             SymbolView[] symbolViews = new SymbolView[activeReels.Count];
             for (int i = 0; i < activeReels.Count; i++)
             {
                 symbolViews[i] = activeReels[i].GetSymbolInMiddle();
             }
-            winConditionChecker.OnSpinEnd(symbolViews);
+           return symbolViews;
+        }
+        private SymbolView[] GetRowAboveMiddle()
+        {
+            SymbolView[] symbolViews = new SymbolView[activeReels.Count];
+            for (int i = 0; i < activeReels.Count; i++)
+            {
+                symbolViews[i] = activeReels[i].GetSymbolAboveMiddle();
+            }
+            return symbolViews;
+        }
+        private SymbolView[] GetRowBelowMiddle()
+        {
+            SymbolView[] symbolViews = new SymbolView[activeReels.Count];
+            for (int i = 0; i < activeReels.Count; i++)
+            {
+                symbolViews[i] = activeReels[i].GetSymbolBelowMiddle();
+            }
+            return symbolViews;
         }
         private void UpdateSpinButtonText()
         {
